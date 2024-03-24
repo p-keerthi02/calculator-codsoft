@@ -1,3 +1,4 @@
+# Define functions for arithmetic operations
 def add(x, y):
     return x + y
 
@@ -9,32 +10,41 @@ def multiply(x, y):
 
 def divide(x, y):
     if y == 0:
-        return "Error! Division by zero."
+        return "Cannot divide by zero"
     else:
         return x / y
 
-print("Select operation:")
-print("1. Add")
-print("2. Subtract")
-print("3. Multiply")
-print("4. Divide")
+# Map operation symbols to functions
+operations = {
+    '+': add,
+    '-': subtract,
+    '*': multiply,
+    '/': divide
+}
 
-while True:
-    choice = input("Enter choice (1/2/3/4): ")
+# Function to perform calculations
+def calculate():
+    while True:
+        # Prompt user for input
+        try:
+            num1 = float(input("Enter first number: "))
+            operation = input("Enter operation (+, -, *, /): ")
+            num2 = float(input("Enter second number: "))
+            
+            # Perform calculation
+            if operation in operations:
+                result = operations[operation](num1, num2)
+                print("Result:", result)
+            else:
+                print("Invalid operation")
+        except ValueError:
+            print("Invalid input. Please enter a valid number.")
+        
+        # Ask user if they want to continue
+        continue_calculation = input("Do you want to calculate again? (yes/no): ")
+        if continue_calculation.lower() != 'yes':
+            break
 
-    if choice in ('1', '2', '3', '4'):
-        num1 = float(input("Enter first number: "))
-        num2 = float(input("Enter second number: "))
-
-        if choice == '1':
-            print("Result:", add(num1, num2))
-        elif choice == '2':
-            print("Result:", subtract(num1, num2))
-        elif choice == '3':
-            print("Result:", multiply(num1, num2))
-        elif choice == '4':
-            print("Result:", divide(num1, num2))
-        break
-    else:
-        print("Invalid input")
+# Start the calculator
+calculate()
 
